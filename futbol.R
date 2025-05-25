@@ -581,19 +581,17 @@ partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fech
                        "pases_intentados_medianos_local","pases_intentados_medianos_visita","porcentaje_pases_completados_medianos_local","porcentaje_pases_completados_medianos_visita","pases_completados_largos_local",
                        "pases_completados_largos_visita","pases_intentados_largos_local","pases_intentados_largos_visita","porcentaje_pases_completados_largos_local","porcentaje_pases_completados_largos_visita",
                        "pases_completados_por_l_local","pases_completados_por_l_visita","pases_intentados_por_1_local","pases_intentados_por_1_visita","porcentaje_pases_completados_por_l_local",
-                       "porcentaje_pases_completados_por_l_visita","pases_pelota_viva_local","pases_pelota_viva_visita",
-                       
-                       )]
-
-
-
-
-
-
-
-
-
-
-
-lista_columnas <- colnames(partido)
-sort(lista_columnas)
+                       "porcentaje_pases_completados_por_l_visita","pases_pelota_viva_local","pases_pelota_viva_visita","pases_pelota_muerta_local","pases_pelota_muerta_visita","pases_progresivos_local",
+                       "pases_progresivos_visita","pases_progresivos_recibidos_local","pases_progresivos_recibidos_visita","pases_recibidos_local","pases_recibidos_visita","pases_clave_local","pases_clave_visita",
+                       "pases_area_penal_local","pases_area_penal_visita", "pases_bloqueados_local","pases_bloqueados_visita","pases_bloqueados_oponente_local","pases_bloqueados_oponente_visita",
+                       "pases_cambio_juego_local","pases_cambio_juego_visita","pases_tiros_libres_local","pases_tiros_libres_visita","pases_ultimo_tercio_local","pases_ultimo_tercio_visita",
+                       "pases_intentados_por_local","pases_intentados_por_visita","balones_recuperados_local","balones_recuperados_visita","barridas_local","barridas_visita","bloqueos_local","bloqueos_visita",
+                       "descontrol_posicion_balon_local","descontrol_posicion_balon_visita","desposesion_balon_local","desposesion_balon_visita","distancia_pases_progresivos_local","distancia_pases_progresivos_visita",
+                       "distancia_posesiones_balon_local","distancia_posesiones_balon_visita","distancia_posesiones_balon_progresivas_local","distancia_posesiones_balon_progresivas_visita","distancia_promedio_pases_por_local",
+                       "distancia_promedio_pases_por_visita","distancia_promedio_acciones_defensivas_local","distancia_promedio_acciones_defensivas_visita","distancia_promedio_tiros_gol_local","distancia_promedio_tiros_gol_visita",
+                       "distancia_total_pases_local","distancia_total_pases_visita","enfrentamientos_perdidos_local","enfrentamientos_perdidos_visita","errores_local","errores_visita","Jugadores_tacleados_local","Jugadores_tacleados_visita",
+                       "n_encares_exitosos_local","n_encares_exitosos_visita","n_encares_local","n_encares_visita","n_posesiones_balon_local","n_posesiones_balon_progresivas_local","n_posesiones_balon_progresivas_visita","n_posesiones_balon_visita",
+                       "posesiones_balon_area_penal_local","posesiones_balon_area_penal_visita","posesiones_balon_tercio_final_local","posesiones_balon_tercio_final_visita","regateos_intentados_local","regateos_intentados_visita",
+                       "suma_intercepciones_tacles_local","suma_intercepciones_tacles_visita","tacles_tercio_defensivo_local","tacles_tercio_defensivo_visita","tacles_tercio_mitad_local","tacles_tercio_mitad_visita","tacles_tercio_ofensivo_local",
+                       "tacles_tercio_ofensivo_visita", "toques_area_penal_def_local","toques_area_penal_def_visita","toques_area_penal_ofen_local","toques_area_penal_ofen_visita","toques_tercio_defensivo_local","toques_tercio_defensivo_visita",
+                       "toques_tercio_mitad_local","toques_tercio_mitad_visita","toques_tercio_ofensivo_local","toques_tercio_ofensivo_visita")]
