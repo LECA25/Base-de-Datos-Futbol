@@ -11,9 +11,9 @@ setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League"
 ###################################################
 
 # Equipo Local #
-equipo_local = "Inter de Milan"
+equipo_local = "Arsenal"
 # Equipo Visitante #
-equipo_visitante = "FC Barcelona"
+equipo_visitante = "Paris Saint-Germain"
 # Torneo #
 torneo = "Champions League"
 # Etapa #
@@ -21,11 +21,11 @@ etapa = "Eliminacion directa"
 # Ronda #
 ronda = "Semifinal"
 # Fase del Partido #
-fase_partido = "Vuelta"
+fase_partido = "Ida"
 # Temporada #
 temporada = "2024-2025"
 # Fecha
-fecha = "06/05/2025"
+fecha = "29/04/2025"
 
 # Leer la base
 equipolocal <- read_excel("equipolocal.xlsx",col_names=FALSE)
@@ -543,12 +543,12 @@ suma_equipovisitante$clave = 1
 partido <- merge(suma_equipolocal,suma_equipovisitante,by = "clave")
 partido <- merge(partido, suma_equipolocal_portero, by="clave")
 partido <- merge(partido, suma_equipovisitante_portero, by="clave")
-partido$torneo <- "Champions League"
-partido$etapa <- "Eliminacion directa"
-partido$ronda <- "Semifinal"
-partido$fase_partido <- "Vuelta"
-partido$temporada <- "2024-2025"
-partido$fecha <- "06/05/2025"
+partido$torneo <- torneo
+partido$etapa <- etapa
+partido$ronda <- ronda
+partido$fase_partido <- fase_partido
+partido$temporada <- temporada
+partido$fecha <- fecha
 # posesion (toques) del balon
 partido$posesion_toques_local = partido$toques_balon_local/(partido$toques_balon_local+partido$toques_balon_visita)
 
@@ -556,9 +556,12 @@ partido$posesion_toques_visita = partido$toques_balon_visita/(partido$toques_bal
 # posesion (general) del balon
 partido$posesion_local = partido$n_posesiones_balon_local/(partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)
 partido$posesion_visita = partido$n_posesiones_balon_visita/(partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)
+# Goles totales
+partido$goles_totales_local = partido$goles_local + partido$autogoloes_visita
+partido$goles_totales_visita = partido$goles_visita + partido$autogoloes_local
 
 #Torneo
-partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","equipolocal","equipovisitante",
+partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","equipolocal","equipovisitante","goles_totales_local","goles_totales_visita",
                        "goles_local","goles_visita","posesion_toques_local","posesion_toques_visita","posesion_local","posesion_visita",
                        "pases_completados_local","pases_completados_visita","pases_intentados_local","pases_intentados_visita","porcentaje_pases_completados_local",
                        "porcentaje_pases_completados_visita","tiros_total_local","tiros_total_visita","tiros_arco_local","tiros_arco_visita","atajadas_local",
@@ -601,6 +604,8 @@ partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fech
 equipo_local
 equipo_visitante
 torneo
+
+
 ####################
 ## Exportar Bases ##
 ####################
@@ -608,16 +613,16 @@ torneo
 # Equipos
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos")
 # Equipo Local
-write.xlsx(equipolocal,"CL_Plantilla_Inter_Milan.xlsx")
-write.xlsx(equipolocal_portero,"CL_Porteros_Inter_Miami.xlsx")
+write.xlsx(equipolocal,"equipolocal_plantilla.xlsx")
+write.xlsx(equipolocal_portero,"equipolocal_porteros.xlsx")
 # Equipo Visitante
-write.xlsx(equipovisitante,"CL_Plantilla_FC_Barcelona.xlsx")
-write.xlsx(equipovisitante_portero,"CL_Portero_FC_Barcelona.xlsx")
+write.xlsx(equipovisitante,"equipovisitante_plantilla.xlsx")
+write.xlsx(equipovisitante_portero,"equipovisitante_porteros.xlsx")
 
 
 #Partidos
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/General")
-write.xlsx(partido,"Champions_League_2024_2025.xlsx")
+write.xlsx(partido,"partido_cl.xlsx")
 
 
 
