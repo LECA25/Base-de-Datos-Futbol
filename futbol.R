@@ -3,29 +3,75 @@ library(openxlsx)
 library(readr)
 library(tidyr)
 library(readxl)
-
+library(rvest)
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League")
+
+url <- "https://fbref.com/en/matches/4b3ea62f/Barcelona-Internazionale-April-30-2025-Champions-League"
+pagina <- read_html(url)
+tablas <- html_table(html_nodes(pagina, "table"), fill = TRUE)
+df1 <- tablas[[4]]  # Selecciona la primera tabla
+df2 <- tablas[[5]]
+df3 <- tablas[[6]]
+df4 <- tablas[[7]]
+df5 <- tablas[[8]]
+df6 <- tablas[[9]]
+
+colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Performance_Gls",
+                  "Performance_Ast","Performance_PK","Performance_PKatt","Performance_Sh",
+                  "Performance_SoT","Performance_CrdY...13","Performance_CrdR...14","Performance_Touches",
+                  "Performance_Tkl","Performance_Int...17","Performance_Blocks","Expected_xG","Expected_npxG",
+                  "Expected_xAG","SCA_SCA","SCA_GCA","Passes_Cmp","Passes_Att","`Passes_Cmp%`","Passes_PrgP",
+                  "Carries_Carries...28","Carries_PrgC...29","TakeOns_Att...30","TakeOns_Succ...31")
+colnames(df2) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Total_Cmp","Total_Att","`Total_Cmp%`","Total_TotDist",
+                   "Total_PrgDist","Short_Cmp","Short_Att","`Short_Cmp%`","Medium_Cmp","Medium_Att","`Medium_Cmp%`","Long_Cmp",
+                   "Long_Att","`Long_Cmp%`","Pass_Ast","Pass_xAG","Pass_xA","Pass_KP","Pass_One_Third","Pass_PPA","Pass_CrsPA","Pass_PrgP")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ###################################################
 ## Introduce la información del torneo y partido ##
 ###################################################
 
 # Equipo Local #
-equipo_local = "Arsenal"
+equipo_local = "Borussia Dortmund"
 # Equipo Visitante #
-equipo_visitante = "Paris Saint-Germain"
+equipo_visitante = "FC Barcelona"
 # Torneo #
 torneo = "Champions League"
 # Etapa #
 etapa = "Eliminacion directa"
 # Ronda #
-ronda = "Semifinal"
-# Fase del Partido #
-fase_partido = "Ida"
+ronda = "Cuartos de Final"
+# Fase del Partido ("Ida"/"Vuelta")
+fase_partido = "Vuelta"
 # Temporada #
 temporada = "2024-2025"
 # Fecha
-fecha = "29/04/2025"
+fecha = "15/04/2025"
+# Estadio local
+estadio = "Signal Iduna Park"
+# ciudad del local
+ciudad = "Dortmund"
+# Entrenador del equipo local
+entrenador_eq_local = "Niko Kovač"
+# Entrenador del visitante
+entrenador_eq_visitante = "Hansi Flick"
+# arbitro central
+arbitro_central = "Maurizio Mariani"
+
+#####################################################
 
 # Leer la base
 equipolocal <- read_excel("equipolocal.xlsx",col_names=FALSE)
@@ -57,8 +103,27 @@ for (base_equipos in bases_equipos) {
   df$fase_partido <- fase_partido
   df$temporada <- temporada
   df$fecha <- fecha
+  df$estadio <- estadio
+  df$ciudad <- ciudad
   assign(base_equipos, df)
 }
+
+bases_equipolocal <- c("equipolocal","equipolocal_portero")
+for (base_equipolocal in bases_equipolocal) {
+  df = get(base_equipolocal)
+  df$entrenador <- entrenador_eq_local
+  df$arbitrocentral <- arbitro_central
+  assign(base_equipolocal, df)
+}
+
+bases_equipovisitante <- c("equipovisitante","equipovisitante_portero")
+for (base_equipovisitante in bases_equipovisitante) {
+  df = get(base_equipovisitante)
+  df$entrenador <- entrenador_eq_visitante
+  df$arbitrocentral <- arbitro_central
+  assign(base_equipovisitante, df)
+}
+
 
 ##############
 ## Porteros ##
@@ -72,6 +137,8 @@ for (base_porteros in bases_porteros) {
   df$fase_partido <- fase_partido
   df$temporada <- temporada
   df$fecha <- fecha
+  df$estadio <- estadio
+  df$ciudad <- ciudad
   # Nacionalidad
   df$nacionalidad_siglas <- substr(df$Nation,4,6)
   # Edad (Años)
@@ -102,8 +169,8 @@ for (base_porteros in bases_porteros) {
                       distancia_promedio_acciones_defensivas = AvgDist,
                       nombre_jugador = Player,
                       numero_minutos = Min)
-  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido",
-               "equipo","nombre_jugador","nacionalidad_siglas","posicion","edad_años","edad_dias","numero_minutos",
+  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido","estadio","ciudad","arbitrocentral",
+               "equipo","entrenador","nombre_jugador","nacionalidad_siglas","posicion","edad_años","edad_dias","numero_minutos",
                "tiros_arco_contra","goles_permitidos","atajadas","porcentaje_atajadas","goles_esperados_despues_tiro",
                "pases_completados_por_l","pases_intentados_por_1","porcentaje_pases_completados_por_l","pases_intentados_por",
                "saques_mano_intentados_por","porcentaje_pases_lanzados_por","distancia_promedio_pases_por","tiros_gol_intentados",
@@ -185,6 +252,8 @@ for (base_equipos in bases_equipos) {
   df$posicion_principal <- substr(df$N_Pos,1,2)
   # Posicion Secundaria
   df$posicion_secundaria <- substr(df$N_Pos,4,5)
+  # Arbitro Central
+  df$arbitro_central <- arbitro_central
   # Cambiar el nombre
   df <- df %>% rename(nombre_jugador = N_Player,
                           numero_dorsal = N_Num,
@@ -315,7 +384,7 @@ for (base_equipos in bases_equipos) {
                                    tiro_penal_generado_contra,autogoles,balones_recuperados,duelos_aereos_ganados,duelos_aereos_perdidos,
                                    porcentaje_duelos_aereos_ganados,edad_años,edad_dias),as.numeric))
   
-  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido","equipo",
+  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido","estadio","ciudad","arbitro_central","equipo","entrenador",
                "nombre_jugador","numero_dorsal","nacionalidad_siglas","posicion_principal","posicion_secundaria",
                "edad_años","edad_dias","numero_minutos","goles","asistencias","asistencias_esperadas","pases_clave","tiros_total","tiros_arco","tiros_bloqueados",
                "goles_esperados","goles_esperados_nopenal","goles_asistidos_esperados","acciones_generadoras_tiros",
@@ -337,7 +406,6 @@ for (base_equipos in bases_equipos) {
   assign(base_equipos, df)
 }
 
-# Convertir a variable numerica
 # Equipo Local
 suma_equipolocal <- equipolocal %>% 
   group_by(equipo) %>%
@@ -559,10 +627,20 @@ partido$posesion_visita = partido$n_posesiones_balon_visita/(partido$n_posesione
 # Goles totales
 partido$goles_totales_local = partido$goles_local + partido$autogoloes_visita
 partido$goles_totales_visita = partido$goles_visita + partido$autogoloes_local
+# Estadio local
+partido$estadio_local = estadio
+# Ciudad
+partido$ciudad = ciudad
+# Entrenador del equipo local
+partido$entrenador_equipo_local = entrenador_eq_local
+# Entrenador del visitante
+partido$entrenador_equipo_visitante = entrenador_eq_visitante
+# arbitro central
+partido$arbitro_central = arbitro_central
 
 #Torneo
-partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","equipolocal","equipovisitante","goles_totales_local","goles_totales_visita",
-                       "goles_local","goles_visita","posesion_toques_local","posesion_toques_visita","posesion_local","posesion_visita",
+partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","estadio_local","ciudad","arbitro_central","equipolocal","entrenador_equipo_local","equipovisitante","entrenador_equipo_visitante",
+                       "goles_totales_local","goles_totales_visita","goles_local","goles_visita","posesion_toques_local","posesion_toques_visita","posesion_local","posesion_visita",
                        "pases_completados_local","pases_completados_visita","pases_intentados_local","pases_intentados_visita","porcentaje_pases_completados_local",
                        "porcentaje_pases_completados_visita","tiros_total_local","tiros_total_visita","tiros_arco_local","tiros_arco_visita","atajadas_local",
                        "atajadas_visita","porcentaje_atajadas_local","porcentaje_atajadas_visita","tarjetas_amarillas_local","tarjetas_amarillas_visita","segunda_amarilla_local",
@@ -622,7 +700,9 @@ write.xlsx(equipovisitante_portero,"equipovisitante_porteros.xlsx")
 
 #Partidos
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/General")
-write.xlsx(partido,"partido_cl.xlsx")
+base_partidos <- read_excel("Champions_League_2024_2025.xlsx")
+union_partidos <- rbind(base_partidos,partido)
+write.xlsx(union_partidos,"Champions_League_2024_2025.xlsx")
 
 
 
