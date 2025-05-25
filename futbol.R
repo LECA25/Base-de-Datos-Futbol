@@ -550,11 +550,12 @@ partido$fase_partido <- "Vuelta"
 partido$temporada <- "2024-2025"
 partido$fecha <- "06/05/2025"
 # posesion (toques) del balon
-partido$posesion_toques_local = (partido$toques_balon_local+partido$toques_balon_visita)/partido$toques_balon_local
-partido$posesion_toques_visita = (partido$toques_balon_local+partido$toques_balon_visita)/partido$toques_balon_visita
+partido$posesion_toques_local = partido$toques_balon_local/(partido$toques_balon_local+partido$toques_balon_visita)
+
+partido$posesion_toques_visita = partido$toques_balon_visita/(partido$toques_balon_local+partido$toques_balon_visita)
 # posesion (general) del balon
-partido$posesion_local = (partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)/partido$n_posesiones_balon_local
-partido$posesion_visita = (partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)/partido$n_posesiones_balon_visita
+partido$posesion_local = partido$n_posesiones_balon_local/(partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)
+partido$posesion_visita = partido$n_posesiones_balon_visita/(partido$n_posesiones_balon_local+partido$n_posesiones_balon_visita)
 
 #Torneo
 partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","equipolocal","equipovisitante",
@@ -595,3 +596,28 @@ partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fech
                        "suma_intercepciones_tacles_local","suma_intercepciones_tacles_visita","tacles_tercio_defensivo_local","tacles_tercio_defensivo_visita","tacles_tercio_mitad_local","tacles_tercio_mitad_visita","tacles_tercio_ofensivo_local",
                        "tacles_tercio_ofensivo_visita", "toques_area_penal_def_local","toques_area_penal_def_visita","toques_area_penal_ofen_local","toques_area_penal_ofen_visita","toques_tercio_defensivo_local","toques_tercio_defensivo_visita",
                        "toques_tercio_mitad_local","toques_tercio_mitad_visita","toques_tercio_ofensivo_local","toques_tercio_ofensivo_visita")]
+
+# Comprobar quien es el equipo local y el equipo visitante
+equipo_local
+equipo_visitante
+torneo
+####################
+## Exportar Bases ##
+####################
+
+# Equipos
+setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos")
+# Equipo Local
+write.xlsx(equipolocal,"CL_Plantilla_Inter_Milan.xlsx")
+write.xlsx(equipolocal_portero,"CL_Porteros_Inter_Miami.xlsx")
+# Equipo Visitante
+write.xlsx(equipovisitante,"CL_Plantilla_FC_Barcelona.xlsx")
+write.xlsx(equipovisitante_portero,"CL_Portero_FC_Barcelona.xlsx")
+
+
+#Partidos
+setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/General")
+write.xlsx(partido,"Champions_League_2024_2025.xlsx")
+
+
+
