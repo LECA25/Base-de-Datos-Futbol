@@ -4,45 +4,16 @@ library(readr)
 library(tidyr)
 library(readxl)
 library(rvest)
+
+# Directorio
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League")
-
-url <- "https://fbref.com/en/matches/4b3ea62f/Barcelona-Internazionale-April-30-2025-Champions-League"
-pagina <- read_html(url)
-tablas <- html_table(html_nodes(pagina, "table"), fill = TRUE)
-df1 <- tablas[[4]]  # Selecciona la primera tabla
-df2 <- tablas[[5]]
-df3 <- tablas[[6]]
-df4 <- tablas[[7]]
-df5 <- tablas[[8]]
-df6 <- tablas[[9]]
-
-colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Performance_Gls",
-                  "Performance_Ast","Performance_PK","Performance_PKatt","Performance_Sh",
-                  "Performance_SoT","Performance_CrdY...13","Performance_CrdR...14","Performance_Touches",
-                  "Performance_Tkl","Performance_Int...17","Performance_Blocks","Expected_xG","Expected_npxG",
-                  "Expected_xAG","SCA_SCA","SCA_GCA","Passes_Cmp","Passes_Att","`Passes_Cmp%`","Passes_PrgP",
-                  "Carries_Carries...28","Carries_PrgC...29","TakeOns_Att...30","TakeOns_Succ...31")
-colnames(df2) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Total_Cmp","Total_Att","`Total_Cmp%`","Total_TotDist",
-                   "Total_PrgDist","Short_Cmp","Short_Att","`Short_Cmp%`","Medium_Cmp","Medium_Att","`Medium_Cmp%`","Long_Cmp",
-                   "Long_Att","`Long_Cmp%`","Pass_Ast","Pass_xAG","Pass_xA","Pass_KP","Pass_One_Third","Pass_PPA","Pass_CrsPA","Pass_PrgP")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ###################################################
 ## Introduce la información del torneo y partido ##
 ###################################################
+
+# Url
+url <- "https://fbref.com/en/matches/4b3ea62f/Barcelona-Internazionale-April-30-2025-Champions-League"
 
 # Equipo Local #
 equipo_local = "Borussia Dortmund"
@@ -71,17 +42,167 @@ entrenador_eq_visitante = "Hansi Flick"
 # arbitro central
 arbitro_central = "Maurizio Mariani"
 
+####################
+## Tablas Equipos ##
+####################
+
+pagina <- read_html(url)
+tablas <- html_table(html_nodes(pagina, "table"), fill = TRUE)
+
+# Obtener tablas de la página web
+## Equipo Local ##
+# Tabla plantilla
+equipolocal1 <- tablas[[4]]  
+equipolocal2 <- tablas[[5]]
+equipolocal3 <- tablas[[6]]
+equipolocal4 <- tablas[[7]]
+equipolocal5 <- tablas[[8]]
+equipolocal6 <- tablas[[9]]
+# Porteros
+equipolocal_portero <- tablas[[10]]
+
+## Equipo Visitante ##
+# Plantilla
+equipovisitante1 <- tablas[[11]] 
+equipovisitante2 <- tablas[[12]] 
+equipovisitante3 <- tablas[[13]] 
+equipovisitante4 <- tablas[[14]] 
+equipovisitante5 <- tablas[[15]] 
+equipovisitante6 <- tablas[[16]]
+# Porteros
+equipovisitante_portero <- tablas[[17]]
+
+## Cronologia Partido ##
+acciones_partido <- tablas[[18]]
+
+## Cambiar nombres de las variables
+# Tabla 1 (equipo local y visitante)
+bases_tabla1 <- c("equipolocal1","equipovisitante1")
+for (base_tabla1 in bases_tabla1) {
+  df = get(base_tabla1)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Performance_Gls",
+                              "Performance_Ast","Performance_PK","Performance_PKatt","Performance_Sh",
+                              "Performance_SoT","Performance_CrdY...13","Performance_CrdR...14","Performance_Touches",
+                              "Performance_Tkl","Performance_Int...17","Performance_Blocks","Expected_xG","Expected_npxG",
+                              "Expected_xAG","SCA_SCA","SCA_GCA","Passes_Cmp","Passes_Att","`Passes_Cmp%`","Passes_PrgP",
+                              "Carries_Carries...28","Carries_PrgC...29","TakeOns_Att...30","TakeOns_Succ...31")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  assign(base_tabla1, df)
+}
+
+# Tabla 2 (local y visitante)
+bases_tabla2 <- c("equipolocal2","equipovisitante2")
+for (base_tabla2 in bases_tabla2) {
+  df = get(base_tabla2)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Total_Cmp","Total_Att","`Total_Cmp%`","Total_TotDist",
+                              "Total_PrgDist","Short_Cmp","Short_Att","`Short_Cmp%`","Medium_Cmp","Medium_Att","`Medium_Cmp%`","Long_Cmp",
+                              "Long_Att","`Long_Cmp%`","Pass_Ast","Pass_xAG","Pass_xA","Pass_KP","Pass_One_Third","Pass_PPA","Pass_CrsPA","Pass_PrgP")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
+  assign(base_tabla2, df)
+}
+
+# Tabla 3 (local y visitante)
+bases_tabla3 <- c("equipolocal3","equipovisitante3")
+for (base_tabla3 in bases_tabla3) {
+  df = get(base_tabla3)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Pass_Att","Pass_Type_Live","Pass_Type_Dead","Pass_Type_FK",
+                              "Pass_Type_TB","Pass_Type_Sw","Pass_Type_Crs","Pass_Type_TI","Pass_Type_CK","Corner_Kick_In","Corner_Kick_Out","Corner_Kick_Str",
+                              "Outocomes_Cmp","Outocomes_Off","Outocomes_Blocks")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
+  assign(base_tabla3, df)
+}
+
+# Tabla 4 (local y visitante)
+bases_tabla4 <- c("equipolocal4","equipovisitante4")
+for (base_tabla4 in bases_tabla4) {
+  df = get(base_tabla4)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Tackles_Tkl","Tackles_TklW","`Tackles_Def 3rd`","`Tackles_Mid 3rd`","`Tackles_Att 3rd`","Challenges_Tkl","Challenges_Att",
+                              "`Challenges_Tkl%`","Challenges_Lost","Blocks_Blocks","Blocks_Sh","Blocks_Pass","B_Int","B_TklInt","B_Clr","B_Err")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
+  assign(base_tabla4, df)
+}
+
+# Tabla 5 (local y visitante)
+bases_tabla5 <- c("equipolocal5","equipovisitante5")
+for (base_tabla5 in bases_tabla5) {
+  df = get(base_tabla5)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Touches_Touches","Touches_Def Pen","Touches_Def 3rd","Touches_Mid 3rd","Touches_Att 3rd",
+                              "Touches_Att Pen","Touches_Live","TakeOns_Att...92","TakeOns_Succ...93","TakeOns_Succ%","TakeOns_Tkld","TakeOns_Tkld%","Carries_Carries...97","Carries_TotDist",
+                              "Carries_PrgDist","Carries_PrgC...100","Carries_One_Third","Carries_CPA","Carries_Mis","Carries_Dis","Receiving_Rec","Receiving_PrgR")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
+  assign(base_tabla5, df)
+}
+
+# Tabla 6 (local y visitante)
+bases_tabla6 <- c("equipolocal6","equipovisitante6")
+for (base_tabla6 in bases_tabla6) {
+  df = get(base_tabla6)
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Performance_CrdY...107","Performance_CrdR...108","Performance_2CrdY","Performance_Fls","Performance_Fld",
+                              "Performance_Off","Performance_Crs","Performance_Int...114","Performance_TklW","Performance_PKwon","Performance_PKcon","Performance_OG","Performance_Recov",
+                              "Aerial Duels_Won","Aerial Duels_Lost","Aerial Duels_Won%")
+  df <- df %>% filter(!N_Min == "Min")
+  df <- df[-nrow(df), ]
+  df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
+  assign(base_tabla6, df)
+}
+
+# Porteros (local y visitante)
+bases_tablaporteros <- c("equipolocal_portero","equipovisitante_portero")
+for (base_tablaporteros in bases_tablaporteros) {
+  df = get(base_tablaporteros)
+  colnames(df) <- c("Player","Nation","Age","Min","SoTA","GA","Saves","`Saves%`","PSxG","Cmp","Att...11","`Cmp%`","`Att (GK)`","Thr",
+                                     "`Launch%...15`","AvgLen...16","Att...17","`Launch%...18`","AvgLen...19","Opp","Stp","`Stp%`","`#OPA`","AvgDist")
+  df <- df %>% filter(!Player == "Player")
+  assign(base_tablaporteros, df)
+}
+
+# Tabla acciones del partido
+colnames(acciones_partido) <- c("minuto","jugador","equipo","goles_esperados","goles_esperados_despues_tiro",
+                      "resultado","distancia","parte_cuerpo","notas","SCA1_jugador","SCA1_evento",
+                      "SCA2_jugador","SCA2_evento")
+acciones_partido <- acciones_partido %>% mutate(across(c("distancia"), as.numeric))
+acciones_partido <- acciones_partido %>% filter(!is.na(distancia))
+
+################
+## Unir bases ##
+################
+
+# Equipo Local
+equipolocal <- merge(equipolocal1,equipolocal2,by="N_Player")
+equipolocal <- merge(equipolocal,equipolocal3,by="N_Player")
+equipolocal <- merge(equipolocal,equipolocal4,by="N_Player")
+equipolocal <- merge(equipolocal,equipolocal5,by="N_Player")
+equipolocal <- merge(equipolocal,equipolocal6,by="N_Player")
+
+# Equipo Visitante
+equipovisitante <- merge(equipovisitante1,equipovisitante2, by="N_Player")
+equipovisitante <- merge(equipovisitante, equipovisitante3, by="N_Player")
+equipovisitante <- merge(equipovisitante, equipovisitante4, by="N_Player")
+equipovisitante <- merge(equipovisitante, equipovisitante5, by="N_Player")
+equipovisitante <- merge(equipovisitante, equipovisitante6, by="N_Player")
+
 #####################################################
 
-# Leer la base
-equipolocal <- read_excel("equipolocal.xlsx",col_names=FALSE)
-equipolocal_portero <- read_excel("equipolocal_portero.xlsx")
-equipovisitante_portero <- read_excel("equipovisitante_portero.xlsx")
+## Leer la base desde la computadora ##
+#equipolocal <- read_excel("equipolocal.xlsx",col_names=FALSE)
+#equipolocal_portero <- read_excel("equipolocal_portero.xlsx")
+#equipovisitante_portero <- read_excel("equipovisitante_portero.xlsx")
 # Cambiar el nombre a las variables
-nombres_columnas <- paste(equipolocal[1, ],equipolocal[2, ],sep = "_")
+#nombres_columnas <- paste(equipolocal[1, ],equipolocal[2, ],sep = "_")
 # Bases con nuevos nombres
-equipolocal <- read_excel("equipolocal.xlsx",col_names = nombres_columnas)
-equipovisitante <- read_excel("equipovisitante.xlsx", col_names = nombres_columnas)
+#equipolocal <- read_excel("equipolocal.xlsx",col_names = nombres_columnas)
+#equipovisitante <- read_excel("equipovisitante.xlsx", col_names = nombres_columnas)
+
+
 # Equipo Local
 equipolocal$equipo <- equipo_local
 equipolocal_portero$equipo <- equipo_local
