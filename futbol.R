@@ -42,6 +42,10 @@ entrenador_eq_visitante = "Hansi Flick"
 # arbitro central
 arbitro_central = "Szymon Marciniak"
 
+######################################################################
+## A continuación, el resto del proceso de hace de forma automática ##
+######################################################################
+
 ####################
 ## Tablas Equipos ##
 ####################
