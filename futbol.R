@@ -6,7 +6,8 @@ library(readxl)
 library(rvest)
 
 # Directorio
-setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League")
+setwd("./Futbol/Champions League")
+
 
 ###################################################
 ## Introduce la información del torneo y partido ##
@@ -885,7 +886,7 @@ cl_equipos <- list(
 procesar_equipo <- function(nombre_equipo, df_plantilla, df_porteros) {
   if (nombre_equipo %in% names(cl_equipos)) {
     configuracion <- cl_equipos[[nombre_equipo]]
-    ruta_base <- "C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos"
+    ruta_base <- "./Futbol/Champions League/Bases/Equipos"
     setwd(file.path(ruta_base, configuracion$carpeta))
     # Base de datos Plantilla
     base_original_plantilla <- read_excel(configuracion$plantilla)
@@ -903,22 +904,22 @@ procesar_equipo <- function(nombre_equipo, df_plantilla, df_porteros) {
 }
 
 # Procesar equipo local
-procesar_equipo(equipo_local, equipolocal, equipolocal_portero)
+#procesar_equipo(equipo_local, equipolocal, equipolocal_portero)
 # Procesar equipo visitante
-procesar_equipo(equipo_visitante, equipovisitante, equipovisitante_portero)
+#procesar_equipo(equipo_visitante, equipovisitante, equipovisitante_portero)
 
 
 # Acciones del Partido
-setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Acciones del Partido")
+setwd("./Futbol/Champions League/Bases/Acciones del Partido")
 cl_acciones_partido_original <- read_excel("CL_Acciones_Partido.xlsx")
 cl_acciones_partido_nuevo <- rbind(cl_acciones_partido_original, acciones_partido)
-write.xlsx(cl_acciones_partido_nuevo, "CL_Acciones_Partido.xlsx")
+#write.xlsx(cl_acciones_partido_nuevo, "CL_Acciones_Partido.xlsx")
 
 #Partidos
-setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/General")
+setwd("./Futbol/Champions League/Bases/General")
 base_partidos <- read_excel("Champions_League_2024_2025.xlsx")
 union_partidos <- rbind(base_partidos,partido)
-write.xlsx(union_partidos,"Champions_League_2024_2025.xlsx")
+#write.xlsx(union_partidos,"Champions_League_2024_2025.xlsx")
 
 
 
