@@ -6,8 +6,7 @@ library(readxl)
 library(rvest)
 
 # Directorio
-setwd("./OneDrive/Documentos/Data Analysis/Futbol/Champions League")
-
+setwd("./Futbol/Champions League")
 
 ###################################################
 ## Introduce la información del torneo y partido ##
