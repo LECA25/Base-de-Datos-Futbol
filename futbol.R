@@ -842,8 +842,6 @@ acciones_partido <- acciones_partido %>% mutate(resultado = case_when(resultado 
                                                                         SCA2_evento == "Pass (Live)" ~ "Pase (Vivo)",
                                                                         SCA2_evento == "Take-on" ~ "Encare"))
 
-
-
 ####################
 ## Exportar Bases ##
 ####################
@@ -853,15 +851,15 @@ cl_equipos <- list(
     carpeta = "FC Barcelona",
     plantilla = "CL_Plantilla_FC_Barcelona.xlsx",
     porteros = "CL_Porteros_FC_Barcelona.xlsx",
-    plantilla_exp = "CL_Plantilla_FC_Barcelona.xlsx",
-    porteros_exp = "CL_Porteros_FC_Barcelona.xlsx"
+    plantilla_exp = "CL_Plantilla_FC_Barcelona2.xlsx",
+    porteros_exp = "CL_Porteros_FC_Barcelona2.xlsx"
   ),
   "Inter de Milan" = list(
     carpeta = "Inter Milan",
     plantilla = "CL_Plantilla_Inter_Milan.xlsx",
     porteros = "CL_Porteros_Inter_Milan.xlsx",
-    plantilla_exp = "CL_Plantilla_Inter_Milan.xlsx",
-    porteros_exp = "CL_Porteros_Inter_Milan.xlsx"
+    plantilla_exp = "CL_Plantilla_Inter_Milan2.xlsx",
+    porteros_exp = "CL_Porteros_Inter_Milan2.xlsx"
   ),
   "Paris Saint-Germain" = list(
     carpeta = "Paris Saint Germain",
@@ -879,143 +877,38 @@ cl_equipos <- list(
   )
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Equipo Local ##
-if (equipo_local == "FC Barcelona") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/FC Barcelona")
-  # Plantilla
-  base_original_plantilla_local <- read_excel("CL_Plantilla_FC_Barcelona.xlsx")
-  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
-  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_FC_Barcelona2.xlsx")
-  # Porteros
-  base_original_porteros_local <- read_excel("CL_Porteros_FC_Barcelona.xlsx")
-  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
-  write.xlsx(base_nueva_porteros_local,"CL_Porteros_FC_Barcelona2.xlsx")
-} else if (equipo_local == "Inter de Milan") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Inter Milan")
-  #Plantilla
-  base_original_plantilla_local <- read_excel("CL_Plantilla_Inter_Milan.xlsx")
-  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
-  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Inter_Milan2.xlsx")
-  # Porteros
-  base_original_porteros_local <- read_excel("CL_Porteros_Inter_Milan.xlsx")
-  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
-  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Inter_Milan2.xlsx")
-} else if (equipo_local == "Paris Saint-Germain") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Paris Saint Germain")
-  #Plantilla
-  base_original_plantilla_local <- read_excel("CL_Plantilla_Paris_Saint_Germain.xlsx")
-  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
-  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Paris_Saint_Germain2.xlsx")
-  # Porteros
-  base_original_porteros_local <- read_excel("CL_Porteros_Paris_Saint_Germain.xlsx")
-  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
-  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Paris_Saint_Germain2.xlsx")
-} else if (equipo_local == "Arsenal") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Arsenal")
-  #Plantilla
-  base_original_plantilla_local <- read_excel("CL_Plantilla_Arsenal.xlsx")
-  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
-  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Arsenal2.xlsx")
-  # Porteros
-  base_original_porteros_local <- read_excel("CL_Porteros_Arsenal.xlsx")
-  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
-  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Arsenal2.xlsx")
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Equipo Visitante ##
-if (equipo_visitante == "FC Barcelona") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/FC Barcelona")
-  # Plantilla
-  base_original_plantilla_visitante <- read_excel("CL_Plantilla_FC_Barcelona.xlsx")
-  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
-  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_FC_Barcelona2.xlsx")
-  # Porteros
-  base_original_porteros_visitante <- read_excel("CL_Porteros_FC_Barcelona.xlsx")
-  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
-  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_FC_Barcelona2.xlsx")
-} else if (equipo_visitante == "Inter de Milan") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Inter Milan")
-  #Plantilla
-  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Inter_Milan.xlsx")
-  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
-  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Inter_Milan2.xlsx")
-  # Porteros
-  base_original_porteros_visitante <- read_excel("CL_Porteros_Inter_Milan.xlsx")
-  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
-  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Inter_Milan2.xlsx")
-} else if (equipo_visitante == "Paris Saint-Germain") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Paris Saint Germain")
-  #Plantilla
-  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Paris_Saint_Germain.xlsx")
-  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
-  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Paris_Saint_Germain2.xlsx")
-  # Porteros
-  base_original_porteros_visitante <- read_excel("CL_Porteros_Paris_Saint_Germain.xlsx")
-  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
-  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Paris_Saint_Germain2.xlsx")
-} else if (equipo_visitante == "Arsenal") {
-  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Arsenal")
-  #Plantilla
-  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Arsenal.xlsx")
-  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
-  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Arsenal2.xlsx")
-  # Porteros
-  base_original_porteros_visitante <- read_excel("CL_Porteros_Arsenal.xlsx")
-  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
-  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Arsenal2.xlsx")
+# Funcion para procesar equipos
+procesar_equipo <- function(nombre_equipo, df_plantilla, df_porteros) {
+  if (nombre_equipo %in% names(cl_equipos)) {
+    configuracion <- cl_equipos[[nombre_equipo]]
+    ruta_base <- "C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos"
+    setwd(file.path(ruta_base, configuracion$carpeta))
+    # Base de datos Plantilla
+    base_original_plantilla <- read_excel(configuracion$plantilla)
+    base_nueva_plantilla <- rbind(base_original_plantilla, df_plantilla)
+    write.xlsx(base_nueva_plantilla, configuracion$plantilla_exp)
+    # Base de datos Porteros
+    base_original_porteros <- read_excel(configuracion$porteros)
+    base_nueva_porteros <- rbind(base_original_porteros, df_porteros)
+    write.xlsx(base_nueva_porteros, configuracion$porteros_exp)
+  } else {
+    cat("Equipo no reconocido:", nombre_equipo, "\n")
+    cat("Equipos válidos:\n")
+    print(names(cl_equipos))
+  }
 }
 
+# Procesar equipo local
+procesar_equipo(equipo_local, equipolocal, equipolocal_portero)
+# Procesar equipo visitante
+procesar_equipo(equipo_visitante, equipovisitante, equipovisitante_portero)
 
 
-
-
-
-
-# Equipos
-setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos")
-# Equipo Local
-write.xlsx(equipolocal,"equipolocal_plantilla.xlsx")
-write.xlsx(equipolocal_portero,"equipolocal_porteros.xlsx")
-# Equipo Visitante
-write.xlsx(equipovisitante,"equipovisitante_plantilla.xlsx")
-write.xlsx(equipovisitante_portero,"equipovisitante_porteros.xlsx")
-
+# Acciones del Partido
+setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Acciones del Partido")
+cl_acciones_partido_original <- read_excel("CL_Acciones_Partido.xlsx")
+cl_acciones_partido_nuevo <- rbind(cl_acciones_partido_original, acciones_partido)
+write.xlsx(cl_acciones_partido_nuevo, "CL_Acciones_Partido.xlsx")
 
 #Partidos
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/General")
