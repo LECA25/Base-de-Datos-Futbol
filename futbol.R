@@ -13,10 +13,10 @@ setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League"
 ###################################################
 
 # Url
-url <- "https://fbref.com/en/matches/4b3ea62f/Barcelona-Internazionale-April-30-2025-Champions-League"
+url <- "https://fbref.com/en/matches/ff6aaaa9/Internazionale-Barcelona-May-6-2025-Champions-League"
 
 # Equipo Local #
-equipo_local = "Borussia Dortmund"
+equipo_local = "Inter de Milan"
 # Equipo Visitante #
 equipo_visitante = "FC Barcelona"
 # Torneo #
@@ -24,23 +24,23 @@ torneo = "Champions League"
 # Etapa #
 etapa = "Eliminacion directa"
 # Ronda #
-ronda = "Cuartos de Final"
+ronda = "Semifinal"
 # Fase del Partido ("Ida"/"Vuelta")
 fase_partido = "Vuelta"
 # Temporada #
 temporada = "2024-2025"
 # Fecha
-fecha = "15/04/2025"
+fecha = "06/05/2025"
 # Estadio local
-estadio = "Signal Iduna Park"
+estadio = "Stadio Giuseppe Meazza"
 # ciudad del local
-ciudad = "Dortmund"
+ciudad = "Milano"
 # Entrenador del equipo local
-entrenador_eq_local = "Niko Kovač"
+entrenador_eq_local = "Stadio Giuseppe Meazza"
 # Entrenador del visitante
 entrenador_eq_visitante = "Hansi Flick"
 # arbitro central
-arbitro_central = "Maurizio Mariani"
+arbitro_central = "Szymon Marciniak"
 
 ####################
 ## Tablas Equipos ##
@@ -84,7 +84,7 @@ for (base_tabla1 in bases_tabla1) {
                               "Performance_Ast","Performance_PK","Performance_PKatt","Performance_Sh",
                               "Performance_SoT","Performance_CrdY...13","Performance_CrdR...14","Performance_Touches",
                               "Performance_Tkl","Performance_Int...17","Performance_Blocks","Expected_xG","Expected_npxG",
-                              "Expected_xAG","SCA_SCA","SCA_GCA","Passes_Cmp","Passes_Att","`Passes_Cmp%`","Passes_PrgP",
+                              "Expected_xAG","SCA_SCA","SCA_GCA","Passes_Cmp","Passes_Att","Passes_CmpPorc","Passes_PrgP",
                               "Carries_Carries...28","Carries_PrgC...29","TakeOns_Att...30","TakeOns_Succ...31")
   df <- df %>% filter(!N_Min == "Min")
   df <- df[-nrow(df), ]
@@ -95,9 +95,9 @@ for (base_tabla1 in bases_tabla1) {
 bases_tabla2 <- c("equipolocal2","equipovisitante2")
 for (base_tabla2 in bases_tabla2) {
   df = get(base_tabla2)
-  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Total_Cmp","Total_Att","`Total_Cmp%`","Total_TotDist",
-                              "Total_PrgDist","Short_Cmp","Short_Att","`Short_Cmp%`","Medium_Cmp","Medium_Att","`Medium_Cmp%`","Long_Cmp",
-                              "Long_Att","`Long_Cmp%`","Pass_Ast","Pass_xAG","Pass_xA","Pass_KP","Pass_One_Third","Pass_PPA","Pass_CrsPA","Pass_PrgP")
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Total_Cmp","Total_Att","Total_CmpPorc","Total_TotDist",
+                              "Total_PrgDist","Short_Cmp","Short_Att","Short_CmpPorc","Medium_Cmp","Medium_Att","Medium_CmpPorc","Long_Cmp",
+                              "Long_Att","Long_CmpPorc","Pass_Ast","Pass_xAG","Pass_xA","Pass_KP","Pass_One_Third","Pass_PPA","Pass_CrsPA","Pass_PrgP")
   df <- df %>% filter(!N_Min == "Min")
   df <- df[-nrow(df), ]
   df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
@@ -121,8 +121,8 @@ for (base_tabla3 in bases_tabla3) {
 bases_tabla4 <- c("equipolocal4","equipovisitante4")
 for (base_tabla4 in bases_tabla4) {
   df = get(base_tabla4)
-  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Tackles_Tkl","Tackles_TklW","`Tackles_Def 3rd`","`Tackles_Mid 3rd`","`Tackles_Att 3rd`","Challenges_Tkl","Challenges_Att",
-                              "`Challenges_Tkl%`","Challenges_Lost","Blocks_Blocks","Blocks_Sh","Blocks_Pass","B_Int","B_TklInt","B_Clr","B_Err")
+  colnames(df) <- c("N_Player","N_Num","N_Nation","N_Pos","N_Age","N_Min","Tackles_Tkl","Tackles_TklW","Tackles_Def3rd","Tackles_Mid3rd","Tackles_Att3rd","Challenges_Tkl","Challenges_Att",
+                              "Challenges_TklPorc","Challenges_Lost","Blocks_Blocks","Blocks_Sh","Blocks_Pass","B_Int","B_TklInt","B_Clr","B_Err")
   df <- df %>% filter(!N_Min == "Min")
   df <- df[-nrow(df), ]
   df <- df %>% select(-N_Num,-N_Nation,-N_Pos,-N_Age,-N_Min)
@@ -159,8 +159,8 @@ for (base_tabla6 in bases_tabla6) {
 bases_tablaporteros <- c("equipolocal_portero","equipovisitante_portero")
 for (base_tablaporteros in bases_tablaporteros) {
   df = get(base_tablaporteros)
-  colnames(df) <- c("Player","Nation","Age","Min","SoTA","GA","Saves","`Saves%`","PSxG","Cmp","Att...11","`Cmp%`","`Att (GK)`","Thr",
-                                     "`Launch%...15`","AvgLen...16","Att...17","`Launch%...18`","AvgLen...19","Opp","Stp","`Stp%`","`#OPA`","AvgDist")
+  colnames(df) <- c("Player","Nation","Age","Min","SoTA","GA","Saves","SavesPorc","PSxG","Cmp","Att...11","CmpPorc","AttGK","Thr",
+                                     "LaunchPorc...15","AvgLen...16","Att...17","LaunchPorc...18","AvgLen...19","Opp","Stp","StpPorc","OPA","AvgDist")
   df <- df %>% filter(!Player == "Player")
   assign(base_tablaporteros, df)
 }
@@ -233,7 +233,7 @@ bases_equipolocal <- c("equipolocal","equipolocal_portero")
 for (base_equipolocal in bases_equipolocal) {
   df = get(base_equipolocal)
   df$entrenador <- entrenador_eq_local
-  df$arbitrocentral <- arbitro_central
+  df$arbitro_central <- arbitro_central
   assign(base_equipolocal, df)
 }
 
@@ -241,7 +241,7 @@ bases_equipovisitante <- c("equipovisitante","equipovisitante_portero")
 for (base_equipovisitante in bases_equipovisitante) {
   df = get(base_equipovisitante)
   df$entrenador <- entrenador_eq_visitante
-  df$arbitrocentral <- arbitro_central
+  df$arbitro_central <- arbitro_central
   assign(base_equipovisitante, df)
 }
 
@@ -271,26 +271,26 @@ for (base_porteros in bases_porteros) {
   df <- df %>% rename(tiros_arco_contra = SoTA,
                       goles_permitidos = GA,
                       atajadas = Saves,
-                      porcentaje_atajadas = `Save%`,
+                      porcentaje_atajadas = SavesPorc,
                       goles_esperados_despues_tiro = PSxG,
                       pases_completados_por_l = Cmp,
                       pases_intentados_por_1 = Att...11,
-                      porcentaje_pases_completados_por_l = `Cmp%`,
-                      pases_intentados_por = `Att (GK)`,
+                      porcentaje_pases_completados_por_l = CmpPorc,
+                      pases_intentados_por = AttGK,
                       saques_mano_intentados_por = Thr,
-                      porcentaje_pases_lanzados_por = `Launch%...15`,
+                      porcentaje_pases_lanzados_por = `LaunchPorc...15`,
                       distancia_promedio_pases_por = AvgLen...16,
                       tiros_gol_intentados = Att...17,
-                      porcentaje_tiros_gol_intentados = `Launch%...18`,
+                      porcentaje_tiros_gol_intentados = `LaunchPorc...18`,
                       distancia_promedio_tiros_gol = AvgLen...19,
                       centros_intentados = Opp,
                       centros_parados = Stp,
-                      porcentaje_centros_parados = `Stp%`,
-                      acciones_defensivas_fuera_area_penal = `#OPA`,
+                      porcentaje_centros_parados = StpPorc,
+                      acciones_defensivas_fuera_area_penal = OPA,
                       distancia_promedio_acciones_defensivas = AvgDist,
                       nombre_jugador = Player,
                       numero_minutos = Min)
-  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido","estadio","ciudad","arbitrocentral",
+  df <- df[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","condicion_partido","estadio","ciudad","arbitro_central",
                "equipo","entrenador","nombre_jugador","nacionalidad_siglas","posicion","edad_años","edad_dias","numero_minutos",
                "tiros_arco_contra","goles_permitidos","atajadas","porcentaje_atajadas","goles_esperados_despues_tiro",
                "pases_completados_por_l","pases_intentados_por_1","porcentaje_pases_completados_por_l","pases_intentados_por",
@@ -305,6 +305,9 @@ for (base_porteros in bases_porteros) {
                                "acciones_defensivas_fuera_area_penal","distancia_promedio_acciones_defensivas"), as.numeric))
   assign(base_porteros, df)
 }
+
+
+
 
 # Portero Equipo Local
 suma_equipolocal_portero <- equipolocal_portero %>% 
@@ -401,7 +404,7 @@ for (base_equipos in bases_equipos) {
                           acciones_generadoras_gol = SCA_GCA,
                           pases_completados = Passes_Cmp,
                           pases_intentados = Passes_Att,
-                          porcentaje_pases_completados = `Passes_Cmp%`,
+                          porcentaje_pases_completados = Passes_CmpPorc,
                           pases_progresivos = Passes_PrgP,
                           n_posesiones_balon = Carries_Carries...28,
                           n_posesiones_balon_progresivas = Carries_PrgC...29,
@@ -411,13 +414,13 @@ for (base_equipos in bases_equipos) {
                           distancia_pases_progresivos = Total_PrgDist,
                           pases_completados_cortos = Short_Cmp,
                           pases_intentados_cortos = Short_Att,
-                          porcentaje_pases_completados_cortos = `Short_Cmp%`,
+                          porcentaje_pases_completados_cortos = Short_CmpPorc,
                           pases_completados_medianos = Medium_Cmp,
                           pases_intentados_medianos = Medium_Att,
-                          porcentaje_pases_completados_medioanos = `Medium_Cmp%`,
+                          porcentaje_pases_completados_medioanos = Medium_CmpPorc,
                           pases_completados_largos = Long_Cmp,
                           pases_intentados_largos = Long_Att,
-                          porcentaje_pases_completados_largos = `Long_Cmp%`,
+                          porcentaje_pases_completados_largos = Long_CmpPorc,
                           asistencias_esperadas = Pass_xA,
                           pases_clave = Pass_KP,
                           pases_ultimo_tercio = Pass_One_Third,
@@ -437,12 +440,12 @@ for (base_equipos in bases_equipos) {
                           pases_bloqueados_oponente = Outocomes_Blocks,
                           jugadores_tacleados = Tackles_Tkl,
                           tacles_ganados = Tackles_TklW,
-                          tacles_tercio_defensivo = `Tackles_Def 3rd`,
-                          tacles_tercio_mitad = `Tackles_Mid 3rd`,
-                          tacles_tercio_ofensivo = `Tackles_Att 3rd`,
+                          tacles_tercio_defensivo = Tackles_Def3rd,
+                          tacles_tercio_mitad = Tackles_Mid3rd,
+                          tacles_tercio_ofensivo = Tackles_Att3rd,
                           regateadores_tacleados = Challenges_Att,
                           regateos_intentados = Challenges_Att,
-                          porcentaje_regateadores_tacleados = `Challenges_Tkl%`,
+                          porcentaje_regateadores_tacleados = Challenges_TklPorc,
                           enfrentamientos_perdidos = Challenges_Lost,
                           tiros_bloqueados = Blocks_Sh,
                           pases_bloqueados = Blocks_Pass,
@@ -474,7 +477,7 @@ for (base_equipos in bases_equipos) {
                           duelos_aereos_perdidos = `Aerial Duels_Lost`,
                           porcentaje_duelos_aereos_ganados = `Aerial Duels_Won%`)
   # Eliminar variables
-  df <- df %>% select(-N_Nation,-N_Age,-Total_Cmp,-Total_Att,-`Total_Cmp%`,-Pass_Ast,-Challenges_Tkl,
+  df <- df %>% select(-N_Nation,-N_Age,-Total_Cmp,-Total_Att,-Total_CmpPorc,-Pass_Ast,-Challenges_Tkl,
                           -Pass_xAG,-Pass_PrgP,-Pass_Att,-Pass_Type_Sw,-Outocomes_Cmp,
                           -Blocks_Blocks,-B_Int,-Touches_Touches,-Touches_Live,
                           -TakeOns_Att...92,-TakeOns_Succ...93,-Carries_Carries...97,
@@ -760,7 +763,7 @@ partido$entrenador_equipo_visitante = entrenador_eq_visitante
 partido$arbitro_central = arbitro_central
 
 #Torneo
-partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fecha","estadio_local","ciudad","arbitro_central","equipolocal","entrenador_equipo_local","equipovisitante","entrenador_equipo_visitante",
+partido <- partido[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","estadio_local","ciudad","arbitro_central","equipolocal","entrenador_equipo_local","equipovisitante","entrenador_equipo_visitante",
                        "goles_totales_local","goles_totales_visita","goles_local","goles_visita","posesion_toques_local","posesion_toques_visita","posesion_local","posesion_visita",
                        "pases_completados_local","pases_completados_visita","pases_intentados_local","pases_intentados_visita","porcentaje_pases_completados_local",
                        "porcentaje_pases_completados_visita","tiros_total_local","tiros_total_visita","tiros_arco_local","tiros_arco_visita","atajadas_local",
@@ -799,15 +802,210 @@ partido <- partido[, c("torneo","etapa","ronda","fase_partido","temporada","fech
                        "tacles_tercio_ofensivo_visita", "toques_area_penal_def_local","toques_area_penal_def_visita","toques_area_penal_ofen_local","toques_area_penal_ofen_visita","toques_tercio_defensivo_local","toques_tercio_defensivo_visita",
                        "toques_tercio_mitad_local","toques_tercio_mitad_visita","toques_tercio_ofensivo_local","toques_tercio_ofensivo_visita")]
 
-# Comprobar quien es el equipo local y el equipo visitante
-equipo_local
-equipo_visitante
-torneo
+# Acciones del partido
+# Resto de variables
+acciones_partido$equipolocal <- equipo_local
+acciones_partido$equipovisitante <- equipo_visitante
+acciones_partido$torneo <- torneo
+acciones_partido$etapa <- etapa
+acciones_partido$ronda <- ronda
+acciones_partido$fase_partido <- fase_partido
+acciones_partido$temporada <- temporada
+acciones_partido$fecha <- fecha
+acciones_partido$estadio_local = estadio
+acciones_partido$ciudad = ciudad
+acciones_partido$entrenador_equipo_local = entrenador_eq_local
+acciones_partido$entrenador_equipo_visitante = entrenador_eq_visitante
+acciones_partido$arbitro_central = arbitro_central
+# Ordenar variables
+
+
+acciones_partido <- acciones_partido[, c("temporada","torneo","etapa","ronda","fase_partido","fecha","estadio_local","ciudad","arbitro_central","equipolocal","entrenador_equipo_local","equipovisitante","entrenador_equipo_visitante",
+                       "minuto","jugador","equipo","goles_esperados","goles_esperados_despues_tiro","resultado","distancia","parte_cuerpo","notas","SCA1_jugador","SCA1_evento","SCA2_jugador","SCA2_evento")]
+
+# Traducir datos internos
+acciones_partido <- acciones_partido %>% mutate(resultado = case_when(resultado == "Blocked" ~ "Bloqueado",
+                                                                      resultado == "Goal" ~ "Gol",
+                                                                      resultado == "Off Target" ~ "Fuera de la Portería",
+                                                                      resultado == "Saved" ~ "Atajado",
+                                                                      resultado == "Woodwork" ~ "Impacto al Palo"),
+                                                parte_cuerpo = case_when(parte_cuerpo == "Head" ~ "Cabeza",
+                                                                         parte_cuerpo == "Left Foot" ~ "Pie Izquierdo",
+                                                                         parte_cuerpo == "Right Foot" ~ "Pie Derecho"),
+                                                notas = case_when(notas == "Volley" ~ "Volea"),
+                                                SCA1_evento = case_when(SCA1_evento == "Fouled" ~ "Falta Recibida",
+                                                                        SCA1_evento == "Pass (Dead)" ~ "Pase (Muerto)",
+                                                                        SCA1_evento == "Pass (Live)" ~ "Pase (Vivo)",
+                                                                        SCA1_evento == "Shot" ~ "Disparo",
+                                                                        SCA1_evento == "Take-on" ~ "Encare"),
+                                                SCA2_evento = case_when(SCA2_evento == "Pass (Dead)" ~ "Pase (Muerto)",
+                                                                        SCA2_evento == "Pass (Live)" ~ "Pase (Vivo)",
+                                                                        SCA2_evento == "Take-on" ~ "Encare"))
+
 
 
 ####################
 ## Exportar Bases ##
 ####################
+
+cl_equipos <- list(
+  "FC Barcelona" = list(
+    carpeta = "FC Barcelona",
+    plantilla = "CL_Plantilla_FC_Barcelona.xlsx",
+    porteros = "CL_Porteros_FC_Barcelona.xlsx",
+    plantilla_exp = "CL_Plantilla_FC_Barcelona.xlsx",
+    porteros_exp = "CL_Porteros_FC_Barcelona.xlsx"
+  ),
+  "Inter de Milan" = list(
+    carpeta = "Inter Milan",
+    plantilla = "CL_Plantilla_Inter_Milan.xlsx",
+    porteros = "CL_Porteros_Inter_Milan.xlsx",
+    plantilla_exp = "CL_Plantilla_Inter_Milan.xlsx",
+    porteros_exp = "CL_Porteros_Inter_Milan.xlsx"
+  ),
+  "Paris Saint-Germain" = list(
+    carpeta = "Paris Saint Germain",
+    plantilla = "CL_Plantilla_Paris_Saint_Germain.xlsx",
+    porteros = "CL_Porteros_Paris_Saint_Germain.xlsx",
+    plantilla_exp = "CL_Plantilla_Paris_Saint_Germain.xlsx",
+    porteros_exp = "CL_Porteros_Paris_Saint_Germain.xlsx"
+  ),
+  "Arsenal" = list(
+    carpeta = "Arsenal",
+    plantilla = "CL_Plantilla_Arsenal.xlsx",
+    porteros = "CL_Porteros_Arsenal.xlsx",
+    plantilla_exp = "CL_Plantilla_Arsenal.xlsx",
+    porteros_exp = "CL_Porteros_Arsenal.xlsx"
+  )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Equipo Local ##
+if (equipo_local == "FC Barcelona") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/FC Barcelona")
+  # Plantilla
+  base_original_plantilla_local <- read_excel("CL_Plantilla_FC_Barcelona.xlsx")
+  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
+  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_FC_Barcelona2.xlsx")
+  # Porteros
+  base_original_porteros_local <- read_excel("CL_Porteros_FC_Barcelona.xlsx")
+  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
+  write.xlsx(base_nueva_porteros_local,"CL_Porteros_FC_Barcelona2.xlsx")
+} else if (equipo_local == "Inter de Milan") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Inter Milan")
+  #Plantilla
+  base_original_plantilla_local <- read_excel("CL_Plantilla_Inter_Milan.xlsx")
+  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
+  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Inter_Milan2.xlsx")
+  # Porteros
+  base_original_porteros_local <- read_excel("CL_Porteros_Inter_Milan.xlsx")
+  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
+  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Inter_Milan2.xlsx")
+} else if (equipo_local == "Paris Saint-Germain") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Paris Saint Germain")
+  #Plantilla
+  base_original_plantilla_local <- read_excel("CL_Plantilla_Paris_Saint_Germain.xlsx")
+  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
+  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Paris_Saint_Germain2.xlsx")
+  # Porteros
+  base_original_porteros_local <- read_excel("CL_Porteros_Paris_Saint_Germain.xlsx")
+  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
+  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Paris_Saint_Germain2.xlsx")
+} else if (equipo_local == "Arsenal") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Arsenal")
+  #Plantilla
+  base_original_plantilla_local <- read_excel("CL_Plantilla_Arsenal.xlsx")
+  base_nueva_plantilla_local <- rbind(base_original_plantilla_local,equipolocal)
+  write.xlsx(base_nueva_plantilla_local,"CL_Plantilla_Arsenal2.xlsx")
+  # Porteros
+  base_original_porteros_local <- read_excel("CL_Porteros_Arsenal.xlsx")
+  base_nueva_porteros_local <- rbind(base_original_porteros_local,equipolocal_portero)
+  write.xlsx(base_nueva_porteros_local,"CL_Porteros_Arsenal2.xlsx")
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Equipo Visitante ##
+if (equipo_visitante == "FC Barcelona") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/FC Barcelona")
+  # Plantilla
+  base_original_plantilla_visitante <- read_excel("CL_Plantilla_FC_Barcelona.xlsx")
+  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
+  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_FC_Barcelona2.xlsx")
+  # Porteros
+  base_original_porteros_visitante <- read_excel("CL_Porteros_FC_Barcelona.xlsx")
+  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
+  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_FC_Barcelona2.xlsx")
+} else if (equipo_visitante == "Inter de Milan") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Inter Milan")
+  #Plantilla
+  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Inter_Milan.xlsx")
+  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
+  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Inter_Milan2.xlsx")
+  # Porteros
+  base_original_porteros_visitante <- read_excel("CL_Porteros_Inter_Milan.xlsx")
+  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
+  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Inter_Milan2.xlsx")
+} else if (equipo_visitante == "Paris Saint-Germain") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Paris Saint Germain")
+  #Plantilla
+  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Paris_Saint_Germain.xlsx")
+  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
+  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Paris_Saint_Germain2.xlsx")
+  # Porteros
+  base_original_porteros_visitante <- read_excel("CL_Porteros_Paris_Saint_Germain.xlsx")
+  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
+  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Paris_Saint_Germain2.xlsx")
+} else if (equipo_visitante == "Arsenal") {
+  setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos/Arsenal")
+  #Plantilla
+  base_original_plantilla_visitante <- read_excel("CL_Plantilla_Arsenal.xlsx")
+  base_nueva_plantilla_visitante <- rbind(base_original_plantilla_visitante,equipovisitante)
+  write.xlsx(base_nueva_plantilla_visitante,"CL_Plantilla_Arsenal2.xlsx")
+  # Porteros
+  base_original_porteros_visitante <- read_excel("CL_Porteros_Arsenal.xlsx")
+  base_nueva_porteros_visitante <- rbind(base_original_porteros_visitante,equipovisitante_portero)
+  write.xlsx(base_nueva_porteros_visitante,"CL_Porteros_Arsenal2.xlsx")
+}
+
+
+
+
+
+
 
 # Equipos
 setwd("C:/Users/leca_/OneDrive/Documentos/Data Analysis/Futbol/Champions League/Bases/Equipos")
