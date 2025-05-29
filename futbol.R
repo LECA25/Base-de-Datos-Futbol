@@ -90,9 +90,9 @@ if (fase == "Fase de Liga" & temporada == "2024-2025"){
                     fecha_formato >= as.Date("22/10/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("23/10/2024", format = "%d/%m/%Y") ~ "Jornada 3",
                     fecha_formato >= as.Date("05/11/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("06/11/2024", format = "%d/%m/%Y") ~ "Jornada 4",
                     fecha_formato >= as.Date("26/11/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("27/11/2024", format = "%d/%m/%Y") ~ "Jornada 5",
-                    fecha_formato >= as.Date("10/12/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("11/12/2025", format = "%d/%m/%Y") ~ "Jornada 6",
+                    fecha_formato >= as.Date("10/12/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("11/12/2024", format = "%d/%m/%Y") ~ "Jornada 6",
                     fecha_formato >= as.Date("21/01/2025", format = "%d/%m/%Y") & fecha_formato <= as.Date("22/01/2025", format = "%d/%m/%Y") ~ "Jornada 7",
-                    fecha_formato == as.Date("29/01/2024", format = "%d/%m/%Y") ~ "Jornada 8")
+                    fecha_formato == as.Date("29/01/2025", format = "%d/%m/%Y") ~ "Jornada 8")
 }
 
 ## Localizacion ##
