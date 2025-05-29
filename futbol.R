@@ -85,7 +85,7 @@ temporada <- case_when(fecha_formato >= as.Date("09/07/2024", format = "%d/%m/%Y
                          fecha_formato <= as.Date("31/05/2025", format = "%d/%m/%Y") ~ "2024-2025")
 ##
 if (fase == "Fase de Liga" & temporada == "2024-2025"){
-  ronda = case_when(fecha_formato >= as.Date("17/09/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("19/10/2024", format = "%d/%m/%Y") ~ "Jornada 1",
+  ronda = case_when(fecha_formato >= as.Date("17/09/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("19/09/2024", format = "%d/%m/%Y") ~ "Jornada 1",
                     fecha_formato >= as.Date("01/10/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("02/10/2024", format = "%d/%m/%Y") ~ "Jornada 2",
                     fecha_formato >= as.Date("22/10/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("23/10/2024", format = "%d/%m/%Y") ~ "Jornada 3",
                     fecha_formato >= as.Date("05/11/2024", format = "%d/%m/%Y") & fecha_formato <= as.Date("06/11/2024", format = "%d/%m/%Y") ~ "Jornada 4",
