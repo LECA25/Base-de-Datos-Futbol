@@ -13,7 +13,7 @@ setwd("./Futbol/Champions League")
 ######################################
 
 # Url
-url <- "https://fbref.com/en/matches/f222cf32/Lille-Juventus-November-5-2024-Champions-League"
+url <- "https://fbref.com/en/matches/2505e711/Juventus-Benfica-January-29-2025-Champions-League"
 
 
 ######################################################################
